@@ -9,10 +9,16 @@ sources:
           - name: _row
             description: ""
           - name: quantity
+            test:
+            - dbt_utils.expression_is_true:
+            expression: '>=0 '
             description: ""
           - name: month
             description: ""
           - name: product_id
+            test: 
+            - unique
+            - not null
             description: ""
           - name: _fivetran_synced
             description: ""
