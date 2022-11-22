@@ -37,6 +37,9 @@ sources:
           - name: page_url
             description: ""
           - name: event_type
+            test:
+            -- accepted_values:
+            values: ['page_view','checkout','add_to_cart','package_shipped']
             description: ""
           - name: order_id
             description: ""
