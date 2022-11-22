@@ -1,0 +1,56 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    database: |  
+        {%- if  target.name == 'user_dev' -%} dev_bronze_db_alumno3
+        {%- elif target.name == 'ci' -%} dev_bronze_db_alumno3
+        {%- elif target.name == 'pro'-%} pro_bronze_db_alumno3 
+        {%- else -%} {{target.database}}_bronze_db_alumno3
+        {%- endif -%}
+    tables:
+      - name: budget
+        columns:
+          - name: _row
+            description: ""
+          - name: quantity
+            test:
+            - dbt_utils.expression_is_true:
+            expression: '>=0 '
+            description: ""
+          - name: month
+            description: ""
+          - name: product_id
+            test: 
+            - unique
+            - not null
+            description: ""
+          - name: _fivetran_synced
+            description: ""
+
+      - name: fivetran_audit
+        columns:
+          - name: id
+            description: ""
+          - name: message
+            description: ""
+          - name: update_started
+            description: ""
+          - name: update_id
+            description: ""
+          - name: schema
+            description: ""
+          - name: table
+            description: ""
+          - name: start
+            description: ""
+          - name: done
+            description: ""
+          - name: rows_updated_or_inserted
+            description: ""
+          - name: status
+            description: ""
+          - name: progress
+            description: ""
+          - name: _fivetran_synced
+            description: ""
