@@ -1,6 +1,6 @@
 {{ config(materialized="view") }}
 
-with events as (select * from {{ source("sql_server_dbo", "events") }}),
+with events as (select * from {{ source("sql_server_dbo", "events") }})
 
 select
 
