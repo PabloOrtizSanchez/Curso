@@ -7,7 +7,7 @@ select
 
       md5(promo_id) as promo_id
     , promo_id as nombre_promo
-    , discount
+    , discount as discount_dolares
     , status
     , _fivetran_deleted
     , _fivetran_synced
