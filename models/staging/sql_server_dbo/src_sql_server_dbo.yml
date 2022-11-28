@@ -217,7 +217,7 @@ sources:
           - name: created_at
             tests:
             - dbt_expectations.expect_column_values_to_be_of_type:
-                column_type: timestamp
+                column_type: timestamp_ntz
             description: ""
           - name: last_name
             description: ""

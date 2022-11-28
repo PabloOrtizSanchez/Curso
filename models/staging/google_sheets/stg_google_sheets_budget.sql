@@ -1,6 +1,9 @@
 {{ config(materialized="view") }}
 
-with budget as (select * from {{ source("google_sheets", "budget") }})
+with stg_google_sheets_budget as (select * from {{ source("google_sheets", "budget") }})
+,
+
+budget as (
 
 select 
 
@@ -10,4 +13,7 @@ select
 , product_id
 , _fivetran_synced
 
-from budget
+from stg_google_sheets_budget
+)
+
+select * from budget

@@ -1,8 +1,10 @@
 {{ config(materialized="view") }}
 
-with events as (select * from {{ source("sql_server_dbo", "events") }})
+with stg_sql_server_dbo_events as (select * from {{ source("sql_server_dbo", "events") }})
+,
 
-select
+events as (
+  select
 
       md5(event_id) as event_id
     , md5(user_id) as user_id
@@ -15,4 +17,7 @@ select
     , _fivetran_deleted
     , _fivetran_synced
 
-from events
+from stg_sql_server_dbo_events
+)
+
+select * from events

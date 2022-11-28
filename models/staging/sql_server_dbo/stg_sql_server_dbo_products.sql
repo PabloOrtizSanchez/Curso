@@ -1,16 +1,19 @@
-{{ config(materialized="table") }}
+{{ config(materialized="view") }}
 
-with products as (select * from {{ source("sql_server_dbo", "products") }})
+with stg_sql_server_dbo_products as (select * from {{ source("sql_server_dbo", "products") }})
+,
 
-alter table products rename column price to price_($)  -- como se hace eso :(
-
-select
+products as (
+  select
 
       md5(product_id) as product_id
     , inventory
-    , price_($)
+    , price as price_USD
     , name
     , _fivetran_deleted
     , _fivetran_synced
     
-from products
+from stg_sql_server_dbo_products
+)
+
+select * from products
