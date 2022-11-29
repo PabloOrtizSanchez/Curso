@@ -1,6 +1,20 @@
 {{ config(materialized="view") }}
 
-with addresses as (select * from {{ source("sql_server_dbo", "addresses") }})
+with stg_sql_server_dbo_addresses as (select * from {{ source("sql_server_dbo", "addresses") }})
+,
 
-select *
-from addresses
+addresses as (
+  select
+
+      md5(address_id) as address_id
+    , country as pais
+    , state as estado
+    , zipcode
+    , address
+    , _fivetran_deleted
+    , _fivetran_synced
+
+from stg_sql_server_dbo_addresses
+)
+
+select * from addresses
