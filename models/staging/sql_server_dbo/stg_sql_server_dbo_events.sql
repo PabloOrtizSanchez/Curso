@@ -12,8 +12,8 @@ events as (
     , md5(session_id) as session_id
     , md5(order_id) as order_id
     , page_url
-    , event_type
-    , created_at
+    , event_type as tipo_evento
+    , cast(created_at as date) as created_at
     , _fivetran_deleted
     , _fivetran_synced
 

@@ -8,8 +8,8 @@ dim_promos as (
 
       promo_id
     , nombre_promo
-    , discount_dolares
-    , status
+    , descuento_dolares
+    , estado
     , _fivetran_deleted
     , _fivetran_synced
 

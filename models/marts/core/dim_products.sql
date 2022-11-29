@@ -7,9 +7,9 @@ dim_products as (
   select
 
       product_id
-    , inventory
-    , price_USD
-    , name
+    , inventario
+    , precio_USD
+    , nombre
     , _fivetran_deleted
     , _fivetran_synced
     

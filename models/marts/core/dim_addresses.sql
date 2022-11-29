@@ -6,9 +6,9 @@ with stg_sql_server_dbo_addresses as (select * from {{ ref('stg_sql_server_dbo_a
 dim_addresses as (
   select
 
-     address_id
-    , country
-    , state
+      address_id
+    , pais
+    , estado
     , zipcode
     , address
     , _fivetran_deleted

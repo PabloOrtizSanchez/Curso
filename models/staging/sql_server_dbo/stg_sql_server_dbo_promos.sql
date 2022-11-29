@@ -9,8 +9,8 @@ promos as (
 
       md5(promo_id) as promo_id
     , promo_id as nombre_promo
-    , discount as discount_dolares
-    , status
+    , discount as descuento_dolares
+    , status as estado
     , _fivetran_deleted
     , _fivetran_synced
 

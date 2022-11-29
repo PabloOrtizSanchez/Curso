@@ -8,8 +8,9 @@ budget as (
 select 
 
   md5(_row) as budget_id
-, quantity
-, month
+, quantity as cantidad
+, month(month) as mes
+, monthname(month) as nombre_mes
 , product_id
 , _fivetran_synced
 

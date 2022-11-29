@@ -10,14 +10,15 @@ dim_budget as (
 select 
 
   budget_id
-, quantity
-, month -- esta columna deberia pasarla a mes como tal
+, id_date_mes
+, cantidad
+, a.mes
 , product_id
 , _fivetran_synced
 
-from stg_google_sheets_budget
+from stg_google_sheets_budget as a
+ join dim_tiempo_mes as b
+on a.mes = b.mes
 )
 
 select * from dim_budget
-
--- Necesito haceer join y añadir id_date_mes? o lo dejo asi y se une a través de month?

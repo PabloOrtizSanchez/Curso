@@ -7,9 +7,9 @@ products as (
   select
 
       md5(product_id) as product_id
-    , inventory
-    , price as price_USD
-    , name
+    , inventory as inventario
+    , price as precio_USD
+    , name as nombre
     , _fivetran_deleted
     , _fivetran_synced
     

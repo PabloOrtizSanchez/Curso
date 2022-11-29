@@ -7,8 +7,8 @@ addresses as (
   select
 
       md5(address_id) as address_id
-    , country
-    , state
+    , country as pais
+    , state as estado
     , zipcode
     , address
     , _fivetran_deleted

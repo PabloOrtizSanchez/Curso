@@ -8,13 +8,13 @@ dim_users as (
 select 
 
   user_id
-, first_name
-, last_name
+, nombre
+, apellido
 , email
 , phone_number
 , created_at
 , updated_at
-, total_orders
+, pedidos_totales
 , _fivetran_deleted
 , _fivetran_synced
 
