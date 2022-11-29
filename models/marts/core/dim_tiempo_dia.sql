@@ -18,7 +18,8 @@ with date as (
 
 select
       date_day as fecha_forecast
-    , year(date_day)*10000+month(date_day)*100+day(date_day) as id_date
+    , year(date_day)*10000+month(date_day)*100+day(date_day) as id_date_dia
+    , year(date_day)*10000+month(date_day)*100 as id_date_mes
     , year(date_day) as anio
     , month(date_day) as mes
     , monthname(date_day) as desc_mes

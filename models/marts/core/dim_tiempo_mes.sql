@@ -1,29 +1,20 @@
-{{ 
-    config(
-        materialized='table', 
-        sort='date_day',
-        dist='date_day',
-        pre_hook="alter session set timezone = 'Europe/Madrid'; alter session set week_start = 7;" 
-        ) }}
 
-with date as (
-    {{ dbt_utils.date_spine(
-        datepart="month",
-        start_date="cast('2000-01-01' as date)",
-        end_date="cast(current_date()+1 as date)"
-    )
-    }}  
+{{ config(materialized="table") }}
+
+with dim_tiempo_dia as (select * from {{ ref('dim_tiempo_dia') }})
+,
+
+dim_tiempo_mes as (
+    select
+      id_date_mes
+    , anio
+    , mes
+    , desc_mes
+from dim_tiempo_dia
+group by id_date_mes,mes,anio,desc_mes
+order by id_date_mes
 )
 
+select * from dim_tiempo_mes
 
-select
-      date_day as fecha_forecast
-    , year(date_day)*10000+month(date_day)*100 as id_date
-    , year(date_day) as anio
-    , month(date_day) as mes
-    , monthname(date_day) as desc_mes
-    , year(date_day)||weekiso(date_day)| as anio_semana
-    , weekiso(date_day) as semana
-from date
-order by
-    date_day desc
+-- AÑADIR UNA COLUMNA CON LA FECHA ENAÑO-MES
