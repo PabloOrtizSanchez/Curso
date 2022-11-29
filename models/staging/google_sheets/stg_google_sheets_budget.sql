@@ -9,7 +9,7 @@ select
 
   md5(_row) as budget_id
 , quantity as cantidad
-, month(month) as mes
+, month as mes_cierre
 , monthname(month) as nombre_mes
 , product_id
 , _fivetran_synced
