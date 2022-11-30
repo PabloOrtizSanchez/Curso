@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: stg_sql_server_dbo_orders
+    description: ""
+    columns:
+      - name: order_id
+        description: ""
+
+      - name: tracking_id
+        description: ""
+
+      - name: address_id
+        description: ""
+
+      - name: promo_id
+        description: ""
+
+      - name: user_id
+        description: ""
+
+      - name: status
+        description: ""
+
+      - name: delivered_at
+        description: ""
+
+      - name: estimated_delivery_at
+        description: ""
+
+      - name: order_cost
+        description: ""
+
+      - name: shipping_cost
+        description: ""
+
+      - name: order_total
+        description: ""
+
+      - name: shipping_service
+        description: ""
+
+      - name: created_at
+        description: ""
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""

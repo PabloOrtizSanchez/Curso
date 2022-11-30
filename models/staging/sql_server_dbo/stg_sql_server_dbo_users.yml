@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: stg_sql_server_dbo_users
+    description: ""
+    columns:
+      - name: user_id
+        description: ""
+
+      - name: nombre
+        description: ""
+
+      - name: apellido
+        description: ""
+
+      - name: email
+        description: ""
+
+      - name: phone_number
+        description: ""
+
+      - name: created_at
+        description: ""
+
+      - name: updated_at
+        description: ""
+
+      - name: pedidos_totales
+        description: ""
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""

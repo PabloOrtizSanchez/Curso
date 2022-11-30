@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_sql_server_dbo_orders_items
+    description: ""
+    columns:
+      - name: order_id
+        description: ""
+
+      - name: product_id
+        description: ""
+
+      - name: quantity
+        description: ""
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""

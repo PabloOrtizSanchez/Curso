@@ -17,13 +17,11 @@ dim_events as (
     , page_url
     , tipo_evento
     , created_at
-    , id_date_dia
+    , year(created_at)*10000+month(created_at)*100+day(created_at) as date_dia_id
     , _fivetran_deleted
     , _fivetran_synced
 
-from stg_sql_server_dbo_events as a
-join dim_tiempo_dia as b
-on a.created_at = b.fecha_forecast
+from stg_sql_server_dbo_events
 )
 
 select * from dim_events
