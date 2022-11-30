@@ -5,7 +5,7 @@ with stg_sql_server_dbo_events as (select * from {{ ref('stg_sql_server_dbo_even
 ,
 
 
-dim_events as (
+fact_events as (
   select
 
       event_id
@@ -22,5 +22,5 @@ dim_events as (
 from stg_sql_server_dbo_events
 )
 
-select * from dim_events
+select * from fact_events
 

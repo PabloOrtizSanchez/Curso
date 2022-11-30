@@ -5,10 +5,10 @@ with stg_sql_server_dbo_orders_items as (select * from {{ source("sql_server_dbo
 
 orders_items as(
   select
-
-  md5(order_id) as order_id
+  {{ dbt_utils.surrogate_key(['order_id', 'product_id']) }} as orders_items_id
+ , md5(order_id) as order_id
  , md5(product_id) as product_id
- , quantity
+ , quantity as cantidad
  , _fivetran_deleted
  , _fivetran_synced
 

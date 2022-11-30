@@ -3,7 +3,7 @@
 with stg_google_sheets_budget as (select * from {{ ref('stg_google_sheets_budget') }})
 ,
 
-dim_budget as (
+fact_budget as (
 
 select 
 
@@ -16,4 +16,4 @@ select
 from stg_google_sheets_budget
 )
 
-select * from dim_budget
+select * from fact_budget
