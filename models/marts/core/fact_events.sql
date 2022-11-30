@@ -3,8 +3,7 @@
 
 with stg_sql_server_dbo_events as (select * from {{ ref('stg_sql_server_dbo_events') }})
 ,
-dim_tiempo_dia as (select * from {{ ref('dim_tiempo_dia') }})
-,
+
 
 dim_events as (
   select
@@ -14,10 +13,9 @@ dim_events as (
     , product_id
     , session_id
     , order_id
+    , year(created_at)*10000+month(created_at)*100+day(created_at) as created_at_date_dia_id
     , page_url
     , tipo_evento
-    , created_at
-    , year(created_at)*10000+month(created_at)*100+day(created_at) as date_dia_id
     , _fivetran_deleted
     , _fivetran_synced
 

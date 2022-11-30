@@ -25,9 +25,6 @@ models:
       - name: updated_at
         description: ""
 
-      - name: pedidos_totales
-        description: ""
-
       - name: _fivetran_deleted
         description: ""
 
