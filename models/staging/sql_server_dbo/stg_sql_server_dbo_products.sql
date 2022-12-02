@@ -6,11 +6,11 @@ with src_sql_server_dbo_products as (select * from {{ source("sql_server_dbo", "
 stg_products as (
   select
 
-       {{ dbt_utils.surrogate_key(['product_id', '_fivetran_synced']) }} as product_id
+      {{ dbt_utils.surrogate_key(['product_id','_fivetran_synced']) }} as product_id
     , product_id as product_NK_id
-    , inventory as inventario
-    , price as precio_USD
-    , name as nombre
+    , inventory
+    , price as prize_USD
+    , name
     , _fivetran_deleted
     , _fivetran_synced
     

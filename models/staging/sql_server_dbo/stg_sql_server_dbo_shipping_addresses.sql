@@ -3,11 +3,12 @@
 with src_sql_server_dbo_shipping_addresses as (select * from {{ source("sql_server_dbo", "addresses") }})
 ,
 
-stg_addresses as (
+stg_shipping_addresses as (
   select
-      md5(address_id) as address_id
-    , country as pais
-    , state as estado
+      {{ dbt_utils.surrogate_key(['address_id','_fivetran_synced']) }} as shipping_address_id
+    , address_id as shipping_address_NK_id
+    , country
+    , state
     , zipcode
     , address
     , _fivetran_deleted
@@ -16,4 +17,4 @@ stg_addresses as (
 from src_sql_server_dbo_shipping_addresses
 )
 
-select * from stg_addresses
+select * from stg_shipping_addresses

@@ -7,10 +7,10 @@ with src_sql_server_dbo_promos as (select * from {{ source("sql_server_dbo", "pr
 stg_promos as (
   select
 
-      md5(promo_id) as promo_id
-    , promo_id as nombre_promo
-    , discount as descuento_dolares
-    , status as estado
+      {{ dbt_utils.surrogate_key(['promo_id','_fivetran_synced']) }} as promo_id
+    , promo_id as promo_NK_id
+    , discount as discout_USD
+    , status
     , _fivetran_deleted
     , _fivetran_synced
 
