@@ -1,20 +1,21 @@
 {{ config(materialized="view") }}
 
-with src_sql_server_dbo_promos as (select * from {{ source("sql_server_dbo", "promos") }})
+with base_sql_server_dbo_promos as (select * from {{ ref('base_sql_server_dbo_promos') }})
 ,
+
 
 
 stg_promos as (
   select
 
-      {{ dbt_utils.surrogate_key(['promo_id','_fivetran_synced']) }} as promo_id
-    , promo_id as promo_NK_id
-    , discount as discout_USD
+      promo_id
+    , promo_NK_id
+    , discout_USD
     , status
     , _fivetran_deleted
     , _fivetran_synced
 
-from src_sql_server_dbo_promos
+from base_sql_server_dbo_promos
 )
 
 select * from stg_promos

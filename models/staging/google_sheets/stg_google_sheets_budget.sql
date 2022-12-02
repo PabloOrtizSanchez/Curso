@@ -1,23 +1,23 @@
 {{ config(materialized="view") }}
 
-with src_google_sheets_budget as (select * from {{ source("google_sheets", "budget") }})
+with base_google_sheets_budget as (select * from {{ ref('base_google_sheets_budget') }})
 ,
-stg_sql_server_dbo_products as (select * from {{ ref('stg_sql_server_dbo_products') }})
+base_sql_server_dbo_products as (select * from {{ ref('base_sql_server_dbo_products') }})
 ,
 
 stg_budget as (
 
 select  
- {{ dbt_utils.surrogate_key(['_row', 'a._fivetran_synced']) }} as budget_id
-, _row as budget_NK_id
+  budget_id
+, budget_NK_id
 , b.product_id
 , quantity
-, year(month)*10000+month(month)*100 as month_id
+, month_id
 , a._fivetran_synced
 
-from src_google_sheets_budget as a
+from base_google_sheets_budget as a
 join
-stg_sql_server_dbo_products as b
+base_sql_server_dbo_products as b
 on a.product_id = b.product_NK_id
 )
 

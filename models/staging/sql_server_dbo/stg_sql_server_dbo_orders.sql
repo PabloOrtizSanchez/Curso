@@ -1,18 +1,18 @@
 {{ config(materialized="view") }}
 
-with src_sql_server_dbo_orders as (select * from {{ source("sql_server_dbo", "orders") }})
+with base_sql_server_dbo_orders as (select * from {{ ref('base_sql_server_dbo_orders') }})
 ,
-stg_sql_server_dbo_shipping_addresses as (select * from {{ ref('stg_sql_server_dbo_shipping_addresses') }})
+base_sql_server_dbo_shipping_addresses as (select * from {{ ref('base_sql_server_dbo_shipping_addresses') }})
 ,
-stg_sql_server_dbo_promos as (select * from {{ ref('stg_sql_server_dbo_promos') }})
+base_sql_server_dbo_promos as (select * from {{ ref('base_sql_server_dbo_promos') }})
 ,
-stg_sql_server_dbo_users as (select * from {{ ref('stg_sql_server_dbo_users') }})
+base_sql_server_dbo_users as (select * from {{ ref('base_sql_server_dbo_users') }})
 ,
 
 stg_orders as (
   select
 
-      {{ dbt_utils.surrogate_key(['a.order_id', 'a._fivetran_synced']) }} as order_id
+      a.order_id
     , a.order_id as order_NK_id
     , b.shipping_address_id
     , c.promo_id
@@ -29,13 +29,13 @@ stg_orders as (
     , a._fivetran_deleted
     , a._fivetran_synced
 
-from src_sql_server_dbo_orders as a
+from base_sql_server_dbo_orders as a
 join
-stg_sql_server_dbo_shipping_addresses as b
-on a.address_id = b.shipping_address_NK_id
-join stg_sql_server_dbo_promos as c
+base_sql_server_dbo_shipping_addresses as b
+on a.shipping_address_id = b.shipping_address_NK_id
+join base_sql_server_dbo_promos as c
 on a.promo_id = c.promo_NK_id
-join stg_sql_server_dbo_users as d
+join base_sql_server_dbo_users as d
 on a.user_id = d.user_NK_id
 
 )

@@ -16,5 +16,3 @@ order by date_mes_id
 )
 
 select * from dim_tiempo_mes
-
--- AÑADIR UNA COLUMNA CON LA FECHA ENAÑO-MES
