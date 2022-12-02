@@ -19,13 +19,13 @@ stg_orders as (
     , d.user_id
     , a.tracking_id
     , a.status
-    , delivered_at
-    , estimated_delivery_at
+    , year(cast(a.delivered_at as date))*10000+month(cast(a.delivered_at as date))*100+day(cast(a.delivered_at as date)) as delivered_at_id
+    , year(cast(a.estimated_delivery_at as date))*10000+month(cast(a.estimated_delivery_at as date))*100+day(cast(a.estimated_delivery_at as date)) as estimated_delivery_at_id
     , order_cost
     , shipping_cost
     , order_total
     , shipping_service
-    , a.created_at
+    , year(cast(a.created_at as date))*10000+month(cast(a.created_at as date))*100+day(cast(a.created_at as date)) as created_at_id
     , a._fivetran_deleted
     , a._fivetran_synced
 
@@ -42,4 +42,3 @@ on a.user_id = d.user_NK_id
 
 select * from stg_orders
 
--- merece la pena ordenar las columnas?
