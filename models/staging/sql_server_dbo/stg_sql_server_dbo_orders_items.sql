@@ -1,9 +1,9 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_orders_items as (select * from {{ source("sql_server_dbo", "order_items") }})
+with src_sql_server_dbo_orders_items as (select * from {{ source("sql_server_dbo", "order_items") }})
 ,
 
-orders_items as(
+stg_orders_items as(
   select
   {{ dbt_utils.surrogate_key(['order_id', 'product_id']) }} as orders_items_id
  , md5(order_id) as order_id
@@ -12,9 +12,9 @@ orders_items as(
  , _fivetran_deleted
  , _fivetran_synced
 
-from stg_sql_server_dbo_orders_items
+from src_sql_server_dbo_orders_items
 )
 
 
-select * from orders_items
+select * from stg_orders_items
 -- si quiero añadir la columna producto como meto esos datos

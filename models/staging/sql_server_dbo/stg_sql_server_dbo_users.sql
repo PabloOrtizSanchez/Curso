@@ -1,6 +1,6 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_users as (select * from {{ source("sql_server_dbo", "users") }})
+with src_sql_server_dbo_users as (select * from {{ source("sql_server_dbo", "users") }})
 ,
 
 users as (
@@ -17,7 +17,7 @@ select
 , _fivetran_deleted
 , _fivetran_synced
 
-from stg_sql_server_dbo_users
+from src_sql_server_dbo_users
 )
 
 select * from users

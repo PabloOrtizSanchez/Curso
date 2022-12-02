@@ -1,19 +1,20 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_products as (select * from {{ source("sql_server_dbo", "products") }})
+with src_sql_server_dbo_products as (select * from {{ source("sql_server_dbo", "products") }})
 ,
 
-products as (
+stg_products as (
   select
 
-      md5(product_id) as product_id
+       {{ dbt_utils.surrogate_key(['product_id', '_fivetran_synced']) }} as product_id
+    , product_id as product_NK_id
     , inventory as inventario
     , price as precio_USD
     , name as nombre
     , _fivetran_deleted
     , _fivetran_synced
     
-from stg_sql_server_dbo_products
+from src_sql_server_dbo_products
 )
 
-select * from products
+select * from stg_products

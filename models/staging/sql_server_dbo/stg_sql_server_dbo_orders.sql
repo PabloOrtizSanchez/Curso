@@ -1,10 +1,10 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_orders as (select * from {{ source("sql_server_dbo", "orders") }})
+with src_sql_server_dbo_orders as (select * from {{ source("sql_server_dbo", "orders") }})
 ,
 
 
-orders as (
+stg_orders as (
   select
 
       md5(order_id) as order_id
@@ -23,9 +23,9 @@ orders as (
     , _fivetran_deleted
     , _fivetran_synced
 
-from stg_sql_server_dbo_orders
+from src_sql_server_dbo_orders
 )
 
-select * from orders
+select * from stg_orders
 
 -- merece la pena ordenar las columnas?

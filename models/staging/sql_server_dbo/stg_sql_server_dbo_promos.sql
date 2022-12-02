@@ -1,10 +1,10 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_promos as (select * from {{ source("sql_server_dbo", "promos") }})
+with src_sql_server_dbo_promos as (select * from {{ source("sql_server_dbo", "promos") }})
 ,
 
 
-promos as (
+stg_promos as (
   select
 
       md5(promo_id) as promo_id
@@ -14,9 +14,9 @@ promos as (
     , _fivetran_deleted
     , _fivetran_synced
 
-from stg_sql_server_dbo_promos
+from src_sql_server_dbo_promos
 )
 
-select * from promos
+select * from stg_promos
 -- preguntar como hacer test para ver que tipo de dato entra
 
