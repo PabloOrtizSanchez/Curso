@@ -4,12 +4,13 @@ with stg_sql_server_dbo_promos as (select * from {{ ref('stg_sql_server_dbo_prom
 ,
 
 dim_promos as (
+  
   select
 
       promo_id
-    , nombre_promo
-    , descuento_dolares
-    , estado
+    , promo_NK_id as name_promo
+    , discout_USD
+    , status
     , _fivetran_deleted
     , _fivetran_synced
 

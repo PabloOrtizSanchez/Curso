@@ -4,6 +4,7 @@ with base_sql_server_dbo_products as (select * from {{ ref('base_sql_server_dbo_
 ,
 
 stg_products as (
+
   select
 
       product_id

@@ -10,10 +10,11 @@ base_sql_server_dbo_users as (select * from {{ ref('base_sql_server_dbo_users') 
 ,
 
 stg_orders as (
+
   select
 
-      a.order_id
-    , a.order_id as order_NK_id
+      a.order_id as order_tracking_id
+    , a.order_NK_id as order_tracking_NK_id
     , b.shipping_address_id
     , c.promo_id
     , d.user_id
@@ -21,9 +22,9 @@ stg_orders as (
     , a.status
     , a.delivered_at_id
     , a.estimated_delivery_at_id
-    , order_cost
-    , shipping_cost
-    , order_total
+    , order_cost as order_cost_USD
+    , shipping_cost as shipping_cost_USD
+    , order_total as order_total_USD
     , shipping_service
     , a.created_at_id
     , a._fivetran_deleted
@@ -41,4 +42,4 @@ on a.user_id = d.user_NK_id
 )
 
 select * from stg_orders
-
+order by order_tracking_NK_id

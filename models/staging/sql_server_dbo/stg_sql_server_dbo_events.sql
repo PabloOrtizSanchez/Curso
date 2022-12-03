@@ -8,6 +8,7 @@ base_sql_server_dbo_products as (select * from {{ ref('base_sql_server_dbo_produ
 ,
 
 stg_events as (
+  
   select
       event_id
     , b.user_id

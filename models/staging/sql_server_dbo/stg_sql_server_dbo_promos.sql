@@ -6,6 +6,7 @@ with base_sql_server_dbo_promos as (select * from {{ ref('base_sql_server_dbo_pr
 
 
 stg_promos as (
+  
   select
 
       promo_id
@@ -19,5 +20,5 @@ from base_sql_server_dbo_promos
 )
 
 select * from stg_promos
--- preguntar como hacer test para ver que tipo de dato entra
+
 

@@ -9,10 +9,11 @@ base_sql_server_dbo_products as (select * from {{ ref('base_sql_server_dbo_produ
 
 
 stg_orders_items as (
+
   select
-   order_item_id
- , order_items_NK_id
- , b.order_id
+   order_item_id as order_details_id
+ , order_items_NK_id as order_details_NK_id
+ , a.order_id
  , c.product_id
  , a.quantity
  , a._fivetran_deleted
@@ -28,4 +29,4 @@ on a.product_id = c.product_NK_id
 )
 
 select * from stg_orders_items
-
+order by order_id

@@ -5,12 +5,12 @@ with stg_google_sheets_budget as (select * from {{ ref('stg_google_sheets_budget
 
 fact_budget as (
 
-select 
-
+select  
   budget_id
-, year(mes_cierre)*10000+month(mes_cierre)*100 as mes_cierre_mes_id
-, cantidad
+, budget_NK_id
 , product_id
+, quantity as quantity_to_sell
+, month_id
 , _fivetran_synced
 
 from stg_google_sheets_budget
