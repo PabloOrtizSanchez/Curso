@@ -19,13 +19,13 @@ stg_orders as (
     , d.user_id
     , a.tracking_id
     , a.status
-    , year(cast(a.delivered_at as date))*10000+month(cast(a.delivered_at as date))*100+day(cast(a.delivered_at as date)) as delivered_at_id
-    , year(cast(a.estimated_delivery_at as date))*10000+month(cast(a.estimated_delivery_at as date))*100+day(cast(a.estimated_delivery_at as date)) as estimated_delivery_at_id
+    , a.delivered_at_id
+    , a.estimated_delivery_at_id
     , order_cost
     , shipping_cost
     , order_total
     , shipping_service
-    , year(cast(a.created_at as date))*10000+month(cast(a.created_at as date))*100+day(cast(a.created_at as date)) as created_at_id
+    , a.created_at_id
     , a._fivetran_deleted
     , a._fivetran_synced
 
