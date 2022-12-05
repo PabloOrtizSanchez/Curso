@@ -22,10 +22,10 @@ stg_events as (
     , a._fivetran_synced
 
 from base_sql_server_dbo_events as a
-join
+left join
 base_sql_server_dbo_users as b
 on a.user_id = b.user_NK_id
-join
+left join
 base_sql_server_dbo_products as c
 on a.product_id = c.product_NK_id
 )

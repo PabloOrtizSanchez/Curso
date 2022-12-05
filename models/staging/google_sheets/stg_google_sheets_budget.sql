@@ -16,7 +16,7 @@ select
 , a._fivetran_synced
 
 from base_google_sheets_budget as a
-join
+left join
 base_sql_server_dbo_products as b
 on a.product_id = b.product_NK_id
 )

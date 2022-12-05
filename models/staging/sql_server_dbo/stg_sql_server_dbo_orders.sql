@@ -31,12 +31,12 @@ stg_orders as (
     , a._fivetran_synced
 
 from base_sql_server_dbo_orders as a
-join
+left join
 base_sql_server_dbo_shipping_addresses as b
 on a.shipping_address_id = b.shipping_address_NK_id
-join base_sql_server_dbo_promos as c
+left join base_sql_server_dbo_promos as c
 on a.promo_id = c.promo_NK_id
-join base_sql_server_dbo_users as d
+left join base_sql_server_dbo_users as d
 on a.user_id = d.user_NK_id
 
 )

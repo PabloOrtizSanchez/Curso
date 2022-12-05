@@ -12,57 +12,117 @@ sources:
         columns:
           - name: address_id
             tests:
-            - unique
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: country
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: state
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: zipcode
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
             description: ""
           - name: address
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: _fivetran_deleted
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            -- accepted_values:
+            values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
 
       - name: events
         columns:
           - name: event_id
             tests:
-            - unique
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: product_id
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: created_at
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_ntz
             description: ""
           - name: page_url
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: event_type
-            test:
-            -- accepted_values:
-            values: ['page_view','checkout','add_to_cart','package_shipped']
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            - accepted_values:
+                values: ['page_view','checkout','add_to_cart','package_shipped']
             description: ""
           - name: order_id
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: user_id
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: session_id
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: _fivetran_deleted
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            -- accepted_values:
+            values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
 
       - name: fivetran_audit
         columns:
           - name: id
-            tests:
-            - unique
-            - not_null
             description: ""
           - name: message
             description: ""
@@ -92,142 +152,280 @@ sources:
           - name: order_id
             tests:
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: product_id
             tests:
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: quantity
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
             - dbt_utils.expression_is_true:
-            expression: '>=1 '
+                expression: '>=1'
             description: ""
           - name: _fivetran_deleted
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            - accepted_values:
+                values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
+            testa:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
 
       - name: orders
         columns:
           - name: order_id
             tests:
-            - unique
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: delivered_at
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
           - name: order_cost
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: float
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
+                expression: '>=0 '
             description: ""
           - name: shipping_service
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: promo_id
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: estimated_delivery_at
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
           - name: tracking_id
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: shipping_cost
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: float
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
+                expression: '>=0 '
             description: ""
           - name: address_id
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: status
-            test:
-            -- accepted_values:
-            values: ['delivered','shipped','preparing']
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            - not_null
+            - accepted_values:
+                values: ['delivered','shipped','preparing']
             description: ""
           - name: created_at
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
           - name: order_total
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: float
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
+                expression: '>=0 '
             description: ""
           - name: user_id
+            tests: 
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: _fivetran_deleted
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            -- accepted_values:
+                values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
 
       - name: products
         columns:
           - name: product_id
             tests:
-            - unique
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: inventory
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
+                expression: '>=0 '
             description: ""
           - name: price
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: float
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
+                expression: '>=0'
             description: ""
           - name: name
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: _fivetran_deleted
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            - accepted_values:
+               values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
 
       - name: promos
         columns:
           - name: promo_id
             tests:
-            - unique
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: discount
-            test:
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
+                expression: '>=0'
             description: ""
           - name: status
-            test:
-            -- accepted_values:
-            values: ['active','inactive']
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            - accepted_values:
+               values: ['active','inactive']
             description: ""
           - name: _fivetran_deleted
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            - accepted_values:
+                values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""
 
       - name: users
         columns:
           - name: user_id
             tests:
-            - unique
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: address_id
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: first_name
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: email
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: created_at
             tests:
+            - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: timestamp_ntz
             description: ""
           - name: last_name
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: updated_at
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_ntz
             description: ""
           - name: phone_number
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: total_orders
             description: ""
           - name: _fivetran_deleted
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            -- accepted_values:
+                values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
             description: ""

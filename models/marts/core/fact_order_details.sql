@@ -20,7 +20,7 @@ fact_order_details as (
  , order_id
  , quantity
  , prize_USD
- , quantity * prize_USD
+ , quantity * prize_USD as total_prize_USD
  , shipping_service
  , created_at_id
  , _fivetran_deleted

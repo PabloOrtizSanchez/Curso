@@ -26,13 +26,13 @@ stg_orders_items as (
  , a._fivetran_synced
 
 from base_sql_server_dbo_orders_items as a
-join
+left join
 base_sql_server_dbo_orders as b
 on a.order_id = b.order_NK_id
-join 
+left join 
 base_sql_server_dbo_products as c
 on a.product_id = c.product_NK_id
-join
+left join
 base_sql_server_dbo_users as d
 on b.user_id = d.user_NK_id
 )
