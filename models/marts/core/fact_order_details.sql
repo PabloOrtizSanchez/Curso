@@ -3,12 +3,6 @@
 
 with stg_sql_server_dbo_orders_items as (select * from {{ ref('stg_sql_server_dbo_orders_items') }})
 ,
-stg_sql_server_dbo_orders as (select * from {{ ref('stg_sql_server_dbo_orders') }})
-,
-stg_sql_server_dbo_users as (select * from {{ ref('stg_sql_server_dbo_users') }})
-,
-stg_sql_server_dbo_products as (select * from {{ ref('stg_sql_server_dbo_products') }})
-,
 
 fact_order_details as (
   

@@ -45,8 +45,6 @@ sources:
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: boolean
-            -- accepted_values:
-            values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
             tests:
@@ -110,8 +108,6 @@ sources:
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: boolean
-            -- accepted_values:
-            values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
             tests:
@@ -174,8 +170,6 @@ sources:
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: boolean
-            - accepted_values:
-                values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
             testa:
@@ -258,8 +252,7 @@ sources:
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: float
-            - dbt_utils.expression_is_true:
-                expression: '>=0 '
+            - positive_values
             description: ""
           - name: user_id
             tests: 
@@ -271,8 +264,6 @@ sources:
             tests:
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: boolean
-            -- accepted_values:
-                values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
             tests:
@@ -316,8 +307,6 @@ sources:
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: boolean
-            - accepted_values:
-               values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
             tests:
@@ -353,8 +342,6 @@ sources:
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: boolean
-            - accepted_values:
-                values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
             tests:
@@ -420,8 +407,6 @@ sources:
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: boolean
-            -- accepted_values:
-                values: ['TRUE','FALSE']
             description: ""
           - name: _fivetran_synced
             tests:
