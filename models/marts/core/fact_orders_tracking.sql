@@ -3,7 +3,7 @@
 
 with
 
-stg_sql_server_dbo_orders as (select * from {{ ref('stg_sql_server_dbo_orders') }})
+stg_sql_server_dbo_orders as (select * from {{ ref('orders_tracking_snapshot') }})
 ,
 
 
@@ -28,6 +28,8 @@ fact_orders_tracking as (
     , order_total_USD
     , _fivetran_deleted
     , _fivetran_synced
+    , dbt_valid_from
+    , dbt_valid_to
 
 from stg_sql_server_dbo_orders
 )

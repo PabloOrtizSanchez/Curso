@@ -1,6 +1,6 @@
 {{ config(materialized="table") }}
 
-with stg_sql_server_dbo_products as (select * from {{ ref('stg_sql_server_dbo_products') }})
+with snp_sql_server_dbo_products as (select * from {{ ref('products_snapshot') }})
 ,
 
 dim_products as (
@@ -14,8 +14,10 @@ dim_products as (
     , name
     , _fivetran_deleted
     , _fivetran_synced
+    , dbt_valid_from
+    , dbt_valid_to
     
-from stg_sql_server_dbo_products
+from snp_sql_server_dbo_products
 )
 
 select * from dim_products

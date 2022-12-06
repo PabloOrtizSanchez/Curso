@@ -12,6 +12,7 @@ stg_events as (
   select
       event_id
     , b.user_id
+    , b.user_NK_id
     , c.product_id
     , session_id
     , order_id
