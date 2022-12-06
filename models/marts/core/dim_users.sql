@@ -1,6 +1,6 @@
 {{ config(materialized="table") }}
 
-with stg_sql_server_dbo_users as (select * from {{ ref('stg_sql_server_dbo_users') }})
+with stg_sql_server_dbo_users as (select * from {{ ref('users_snapshot') }})
 ,
 
 dim_users as (

@@ -1,6 +1,6 @@
 {{ config(materialized="view") }}
 
-with src_sql_server_dbo_products as (select * from {{ source("sql_server_dbo", "products") }})
+with src_sql_server_dbo_products as (select * from {{ source('sql_server_dbo', 'products') }})
 ,
 
 base_products as (

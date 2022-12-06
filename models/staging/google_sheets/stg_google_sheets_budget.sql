@@ -7,7 +7,7 @@ base_sql_server_dbo_products as (select * from {{ ref('base_sql_server_dbo_produ
 
 stg_budget as (
 
-select  
+select
   budget_id
 , budget_NK_id
 , b.product_id

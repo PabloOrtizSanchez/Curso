@@ -1,6 +1,6 @@
 {{ config(materialized="view") }}
 
-with src_sql_server_dbo_shipping_addresses as (select * from {{ source("sql_server_dbo", "addresses") }})
+with src_sql_server_dbo_shipping_addresses as (select * from {{ source('sql_server_dbo', 'addresses') }})
 ,
 
 base_shipping_addresses as (

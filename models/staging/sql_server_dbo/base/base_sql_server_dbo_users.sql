@@ -1,6 +1,6 @@
 {{ config(materialized="view") }}
 
-with src_sql_server_dbo_users as (select * from {{ source("sql_server_dbo", "users") }})
+with src_sql_server_dbo_users as (select * from {{ source('sql_server_dbo', 'users') }})
 ,
 
 base_users as (
