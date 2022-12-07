@@ -11,6 +11,7 @@ stg_events as (
   
   select
       event_id
+    , event_NK_id
     , b.user_id
     , b.user_NK_id
     , c.product_id

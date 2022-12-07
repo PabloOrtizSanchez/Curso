@@ -7,6 +7,7 @@ base_events as (
   select
 
      {{ dbt_utils.surrogate_key(['event_id', '_fivetran_synced']) }} as event_id
+    , event_id as event_NK_id
     , user_id
     , product_id
     , session_id
