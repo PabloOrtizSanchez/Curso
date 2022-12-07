@@ -12,13 +12,11 @@ dim_promos as (
   select
 
       promo_id
-    , promo_NK_id as name_promo
+    , promo_NK_id
     , discout_USD
     , status
     , _fivetran_deleted
     , _fivetran_synced
-    , dbt_valid_from
-    , dbt_valid_to
 
 from stg_sql_server_dbo_promos
 )

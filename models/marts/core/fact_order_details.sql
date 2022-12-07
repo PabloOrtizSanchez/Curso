@@ -1,6 +1,6 @@
 {{
    config(materialized="incremental",
-unique_key = 'event_NK_id'
+unique_key = 'order_details_NK_id'
 ) 
 }}
 

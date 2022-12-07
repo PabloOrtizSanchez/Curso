@@ -32,8 +32,6 @@ fact_orders_tracking as (
     , order_total_USD
     , _fivetran_deleted
     , _fivetran_synced
-    , dbt_valid_from
-    , dbt_valid_to
 
 from stg_sql_server_dbo_orders
 )

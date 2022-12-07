@@ -63,6 +63,10 @@ sources:
             description: ""
           - name: product_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'products')
+                field: product_id
+                where: product_id <> null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
             description: ""
@@ -88,11 +92,18 @@ sources:
             description: ""
           - name: order_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'orders')
+                field: order_id
+                where: order_id <> null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
             description: ""
           - name: user_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'users')
+                field: user_id
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
@@ -147,12 +158,18 @@ sources:
         columns:
           - name: order_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'orders')
+                field: order_id
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
             description: ""
           - name: product_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'products')
+                field: product_id
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
@@ -206,6 +223,10 @@ sources:
             description: ""
           - name: promo_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'promos')
+                field: promo_id
+                where: promo_id <> null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
             description: ""
@@ -229,6 +250,9 @@ sources:
             description: ""
           - name: address_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'addresses')
+                field: address_id
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
@@ -255,7 +279,10 @@ sources:
             - positive_values
             description: ""
           - name: user_id
-            tests: 
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'users')
+                field: user_id
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
@@ -360,6 +387,9 @@ sources:
             description: ""
           - name: address_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'addresses')
+                field: address_id
             - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: varchar
