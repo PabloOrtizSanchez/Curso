@@ -10,7 +10,7 @@ stg_products as (
       product_id
     , product_NK_id
     , inventory
-    , prize_USD
+    , price_USD
     , name
     , _fivetran_deleted
     , _fivetran_synced

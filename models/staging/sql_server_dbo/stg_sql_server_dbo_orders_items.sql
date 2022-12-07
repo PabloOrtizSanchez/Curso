@@ -19,7 +19,7 @@ stg_orders_items as (
  , d.user_id
  , c.product_id
  , a.quantity
- , c.prize_USD
+ , c.price_USD
  , b.shipping_service
  , b.created_at_id
  , a._fivetran_deleted

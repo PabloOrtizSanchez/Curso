@@ -9,6 +9,6 @@
     )
 }}
 
-select * from {{ ref('stg_sql_server_dbo_orders') }}
+select * from {{ ref('fact_orders_tracking') }}
 
 {% endsnapshot %}

@@ -1,6 +1,11 @@
-{{ config(materialized="table") }}
+{{
+   config(materialized="incremental",
+unique_key = 'product_NK_id'
+) 
+}}
+ 
 
-with snp_sql_server_dbo_products as (select * from {{ ref('products_snapshot') }})
+with stg_sql_server_dbo_products as (select * from {{ ref('stg_sql_server_dbo_products') }})
 ,
 
 dim_products as (
@@ -10,14 +15,18 @@ dim_products as (
       product_id
     , product_NK_id
     , inventory
-    , prize_USD
+    , price_USD
     , name
     , _fivetran_deleted
     , _fivetran_synced
-    , dbt_valid_from
-    , dbt_valid_to
     
-from snp_sql_server_dbo_products
+from stg_sql_server_dbo_products
 )
 
 select * from dim_products
+
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}

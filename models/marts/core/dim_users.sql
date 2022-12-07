@@ -1,6 +1,11 @@
-{{ config(materialized="table") }}
+{{
+   config(materialized="incremental",
+unique_key = 'user_NK_id'
+) 
+}}
 
-with snp_sql_server_dbo_users as (select * from {{ ref('users_snapshot') }})
+
+with snp_sql_server_dbo_users as (select * from {{ ref('stg_sql_server_dbo_users') }})
 ,
 int_events as (select * from {{ ref('int_events') }})
 ,
@@ -20,8 +25,6 @@ select
 , updated_at_id
 , _fivetran_deleted
 , _fivetran_synced
-, dbt_valid_from
-, dbt_valid_to
 
 
 from snp_sql_server_dbo_users as a
@@ -32,7 +35,13 @@ on a.user_NK_id = b.user_NK_id
 
 select * from dim_users
 
+{% if is_incremental() %}
+
+  where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
+
+{% endif %}
+
 -- Cuidado, por el snapshot en users, la suma de pedidos será desde la última vez que se actualizó el usuario. 
--- ARREGLADO lo de arriba, he hecho el group by por user_NK_id para que no tenga en cuenta las actualizaciones.
+-- ARREGLADO lo de arriba, he hecho el group by por user_NK_id en int_events para que no tenga en cuenta las actualizaciones.
 
 --para hacer que en las celdas vacias ponga 0 como se hace

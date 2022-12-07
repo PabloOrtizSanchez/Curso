@@ -9,6 +9,6 @@
     )
 }}
 
-select * from {{ ref('stg_sql_server_dbo_users') }}
+select * from {{ ref('dim_users') }}
 
 {% endsnapshot %}
