@@ -15,6 +15,7 @@ base_events as (
     , page_url
     , event_type
     , year(cast(created_at as date))*10000+month(cast(created_at as date))*100+day(cast(created_at as date)) as created_at_id
+    , created_at
     , _fivetran_deleted
     , _fivetran_synced
 

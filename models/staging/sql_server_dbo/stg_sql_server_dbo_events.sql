@@ -20,6 +20,7 @@ stg_events as (
     , page_url
     , event_type
     , a.created_at_id
+    , a.created_at
     , a._fivetran_deleted
     , a._fivetran_synced
 

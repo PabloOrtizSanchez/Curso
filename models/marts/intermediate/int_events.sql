@@ -1,14 +1,14 @@
 {{ config(materialized="view") }}
 
 with
-    int_events as (select * from {{ ref("stg_sql_server_dbo_events") }}),
+    stg_sql_server_dbo_events as (select * from {{ ref("stg_sql_server_dbo_events") }}),
 
 
     pedidos_usuarios as (
         select 
           user_nk_id
         , count(order_id) as numero_pedidos
-        from int_events
+        from stg_sql_server_dbo_events
         where order_id != ''
         group by user_nk_id
     )

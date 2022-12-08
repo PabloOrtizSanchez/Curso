@@ -15,11 +15,14 @@ base_orders as (
     , status
     , year(cast(delivered_at as date))*10000+month(cast(delivered_at as date))*100+day(cast(delivered_at as date)) as delivered_at_id
     , year(cast(estimated_delivery_at as date))*10000+month(cast(estimated_delivery_at as date))*100+day(cast(estimated_delivery_at as date)) as estimated_delivery_at_id
+    , delivered_at
+    , estimated_delivery_at
     , order_cost
     , shipping_cost
     , order_total
     , shipping_service
     , year(cast(created_at as date))*10000+month(cast(created_at as date))*100+day(cast(created_at as date)) as created_at_id
+    , created_at
     , _fivetran_deleted
     , _fivetran_synced
 

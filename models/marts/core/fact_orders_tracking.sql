@@ -23,9 +23,12 @@ fact_orders_tracking as (
     , tracking_id
     , promo_id
     , created_at_id
+    , created_at
     , shipping_service
     , estimated_delivery_at_id
     , delivered_at_id
+    , estimated_delivery_at
+    , delivered_at
     , status
     , order_cost_USD
     , shipping_cost_USD

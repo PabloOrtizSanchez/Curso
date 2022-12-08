@@ -23,6 +23,7 @@ select
 , c.state
 , c.primary_city
 , c.zipcode
+, c.address
 , email
 , phone_number
 , numero_pedidos

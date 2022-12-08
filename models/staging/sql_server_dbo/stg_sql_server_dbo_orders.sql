@@ -22,11 +22,14 @@ stg_orders as (
     , a.status
     , a.delivered_at_id
     , a.estimated_delivery_at_id
+    , a.delivered_at
+    , a.estimated_delivery_at
     , order_cost as order_cost_USD
     , shipping_cost as shipping_cost_USD
     , order_total as order_total_USD
     , shipping_service
     , a.created_at_id
+    , a.created_at
     , a._fivetran_deleted
     , a._fivetran_synced
 
