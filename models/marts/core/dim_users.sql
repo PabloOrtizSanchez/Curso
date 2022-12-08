@@ -4,10 +4,11 @@ unique_key = 'user_NK_id'
 ) 
 }}
 
-
-with snp_sql_server_dbo_users as (select * from {{ ref('stg_sql_server_dbo_users') }})
+with stg_sql_server_dbo_users as (select * from {{ ref('stg_sql_server_dbo_users') }})
 ,
 int_events as (select * from {{ ref('int_events') }})
+,
+stg_sql_server_dbo_shipping_addresses as (select * from {{ ref('stg_sql_server_dbo_shipping_addresses') }})
 ,
 
 dim_users as (
@@ -18,19 +19,26 @@ select
 , a.user_NK_id
 , first_name
 , last_name
+, c.country
+, c.state
+, c.primary_city
+, c.zipcode
 , email
 , phone_number
 , numero_pedidos
 , created_at_id
 , updated_at_id
-, _fivetran_deleted
-, _fivetran_synced
+, a._fivetran_deleted
+, a._fivetran_synced
 
 
-from snp_sql_server_dbo_users as a
+from stg_sql_server_dbo_users as a
 left join
 int_events as b
 on a.user_NK_id = b.user_NK_id
+left join
+stg_sql_server_dbo_shipping_addresses as c
+on a.address_id = c.shipping_address_NK_id
 )
 
 select * from dim_users

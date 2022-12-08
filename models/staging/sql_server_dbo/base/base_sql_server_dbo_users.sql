@@ -11,6 +11,7 @@ select
 , user_id as user_NK_id
 , first_name
 , last_name
+, address_id
 , email
 , phone_number
 ,  year(created_at)*10000+month(created_at)*100+day(created_at) as created_at_id

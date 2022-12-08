@@ -4,9 +4,9 @@ unique_key = 'shipping_address_NK_id'
 ) 
 }}
 
-
 with stg_sql_server_dbo_shipping_addresses as (select * from {{ ref('stg_sql_server_dbo_shipping_addresses') }})
 ,
+
 
 dim_shipping_addresses as (
   
@@ -15,6 +15,7 @@ dim_shipping_addresses as (
     , shipping_address_NK_id
     , country
     , state
+    , primary_city
     , zipcode
     , address
     , _fivetran_deleted

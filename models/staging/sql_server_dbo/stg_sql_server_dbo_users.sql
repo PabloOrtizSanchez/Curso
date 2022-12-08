@@ -11,6 +11,7 @@ select
 , user_NK_id
 , first_name
 , last_name
+, address_id
 , email
 , phone_number
 , created_at_id
