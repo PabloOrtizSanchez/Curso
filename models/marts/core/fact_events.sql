@@ -6,29 +6,24 @@ unique_key = 'event_NK_id'
 
 with stg_sql_server_dbo_events as (select * from {{ ref('stg_sql_server_dbo_events') }})
 ,
-int_events_session as (select * from {{ ref('int_events_session') }})
-,
+
 fact_events as (
   
   select
-      a.event_id
-    , a.event_NK_id
-    , a.user_id
-    , a.product_id
-    , a.session_id
-    , b.duracion_sesion_segundos
-    , a.order_id
-    , a.page_url
-    , a.event_type
-    , a.created_at_id
-    , a.created_at
-    , a._fivetran_deleted
-    , a._fivetran_synced
+      event_id
+    , event_NK_id
+    , user_id
+    , product_id
+    , session_id
+    , order_id
+    , page_url
+    , event_type
+    , created_at_id
+    , created_at
+    , _fivetran_deleted
+    , _fivetran_synced
 
-from stg_sql_server_dbo_events as a
-left join
-int_events_session as b
-on a.session_id = b.session_id
+from stg_sql_server_dbo_events
 )
 
 

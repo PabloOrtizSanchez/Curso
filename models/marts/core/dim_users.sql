@@ -29,6 +29,8 @@ select
 , numero_pedidos
 , created_at_id
 , updated_at_id
+, created_at
+, updated_at
 , a._fivetran_deleted
 , a._fivetran_synced
 

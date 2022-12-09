@@ -16,6 +16,8 @@ select
 , phone_number
 , created_at_id
 , updated_at_id
+, created_at
+, updated_at
 , _fivetran_deleted
 , _fivetran_synced
 

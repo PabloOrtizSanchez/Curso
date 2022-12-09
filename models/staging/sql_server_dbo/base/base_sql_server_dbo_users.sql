@@ -16,6 +16,8 @@ select
 , phone_number
 ,  year(created_at)*10000+month(created_at)*100+day(created_at) as created_at_id
 ,  year(updated_at)*10000+month(updated_at)*100+day(updated_at) as updated_at_id
+, created_at
+, updated_at
 , _fivetran_deleted
 , _fivetran_synced
 

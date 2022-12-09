@@ -22,6 +22,7 @@ stg_orders_items as (
  , c.price_USD
  , b.shipping_service
  , b.created_at_id
+ , b.created_at
  , a._fivetran_deleted
  , a._fivetran_synced
 

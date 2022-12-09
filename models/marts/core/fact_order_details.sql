@@ -20,6 +20,7 @@ fact_order_details as (
  , quantity * price_USD as total_price_USD
  , shipping_service
  , created_at_id
+ , created_at
  , _fivetran_deleted
  , _fivetran_synced
 
