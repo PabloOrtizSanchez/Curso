@@ -8,7 +8,7 @@ base_promos as (
 
       {{ dbt_utils.surrogate_key(['promo_id','_fivetran_synced']) }} as promo_id
     , promo_id as promo_NK_id
-    , discount as discout_USD
+    , discount as discount_USD
     , status
     , _fivetran_deleted
     , _fivetran_synced

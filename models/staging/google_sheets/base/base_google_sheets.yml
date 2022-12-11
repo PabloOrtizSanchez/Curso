@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: base_google_sheets_budget
+    description: "Tabla de presupuesto."
+    columns:
+      - name: budget_id
+        description: "Id del presupuesto."
+
+      - name: budget_nk_id
+        description: "Id natural del presupuesto."
+
+      - name: product_id
+        description: "Id del producto."
+
+      - name: quantity
+        description: "Cantidad que se espera vender."
+
+      - name: month_id
+        description: "Id del mes."
+
+      - name: _fivetran_synced
+        description: ""

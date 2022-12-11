@@ -11,7 +11,7 @@ stg_promos as (
 
       promo_id
     , promo_NK_id
-    , discout_USD
+    , discount_USD
     , status
     , _fivetran_deleted
     , _fivetran_synced

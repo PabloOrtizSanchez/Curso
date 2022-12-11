@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: int_events_session
+    description: "Tabla intermediaria de eventos para la tabla de hechos sesión"
+    columns:
+      - name: session_id
+        description: "Id referida a la sesión."
+
+      - name: duracion_sesion_segundos
+        description: "Duración de la sesión en segundos."
+
+      - name: duracion_sesion_minutos
+        description: "Duración de la sesión en minutos."
+
+      - name: paginas_visitadas
+        description: "Número de paginas visitadas."
+
+      - name: productos_al_carrito
+        description: "Número de productos añadidos al carrito."
+
+      - name: hace_compra
+        description: "Dice si en esa sesión se realiza una compra."
+
+  - name: int_events
+    description: "Tabla intermedia para calcular el número de pedidos por uusario."
+    columns:
+      - name: user_nk_id
+        description: "Id natural del usuario."
+
+      - name: numero_pedidos
+        description: "Número de pedidos del usuario."

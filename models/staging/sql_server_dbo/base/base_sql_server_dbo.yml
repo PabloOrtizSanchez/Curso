@@ -1,26 +1,26 @@
 version: 2
 
 models:
-  - name: stg_sql_server_dbo_events
+  - name: base_sql_server_dbo_events
     description: "Tabla de eventos."
     columns:
       - name: event_id
-        description: "Id de la tabla."
+        description: "Id del evento."
 
       - name: event_nk_id
-        description: "Id natural de la tabla."
+        description: "Id natural del evento."
 
       - name: user_id
-        description: "Id referida al usuario."
+        description: "Id del usuario."
 
       - name: product_id
-        description: "Id referida al producto."
+        description: "Id del producto."
 
       - name: session_id
-        description: "Id referida a la sesión."
+        description: "Id de la sesión."
 
       - name: order_id
-        description: "Id referida al pedido."
+        description: "Id del pedido."
 
       - name: page_url
         description: "Página web visitada."
@@ -32,7 +32,7 @@ models:
         description: "Id de la fecha de creación del evento."
 
       - name: created_at
-        description: "Fecha de creación del evento."
+        description: "Fecha de la creación del evento."
 
       - name: _fivetran_deleted
         description: ""
@@ -40,38 +40,23 @@ models:
       - name: _fivetran_synced
         description: ""
 
-  - name: stg_sql_server_dbo_orders_items
+  - name: base_sql_server_dbo_orders_items
     description: "Tabla de productos del pedido."
     columns:
-      - name: order_details_id
-        description: "Id de orden y pedido."
+      - name: order_item_id
+        description: "Id del producto del pedido."
 
-      - name: order_details_nk_id
-        description: "Id natural de orden y pedido."
+      - name: order_items_nk_id
+        description: "Id natural del producto del pedido."
 
       - name: order_id
         description: "Id del pedido."
-
-      - name: user_id
-        description: "Id del usuario."
 
       - name: product_id
         description: "Id del producto."
 
       - name: quantity
-        description: "Cantidad del mismo producto en el pedido."
-
-      - name: price_usd
-        description: "Precio en dólares."
-
-      - name: shipping_service
-        description: "Servicio de envío."
-
-      - name: created_at_id
-        description: "Id de la fecha decreación."
-
-      - name: created_at
-        description: "Fecha de creación."
+        description: "Cantidad del producto en ese pedido."
 
       - name: _fivetran_deleted
         description: ""
@@ -79,14 +64,14 @@ models:
       - name: _fivetran_synced
         description: ""
 
-  - name: stg_sql_server_dbo_orders
+  - name: base_sql_server_dbo_orders
     description: "Tabla de pedidos."
     columns:
-      - name: order_tracking_id
-        description: "Id del seguimiento del pedido."
+      - name: order_id
+        description: "Id del pedido."
 
-      - name: order_tracking_nk_id
-        description: "Id natural del seguimiento del pedido."
+      - name: order_nk_id
+        description: "Id natural del pedido."
 
       - name: shipping_address_id
         description: "Id de la dirección de envío."
@@ -98,13 +83,13 @@ models:
         description: "Id del usuario."
 
       - name: tracking_id
-        description: "Id del seguimiento de varios pedidos."
+        description: "Id del seguimiento de los pedidos."
 
       - name: status
         description: "Estado del pedido."
 
       - name: delivered_at_id
-        description: "Id de la fecha de entrega."
+        description: "Id de la fecha de entrega del pedido."
 
       - name: estimated_delivery_at_id
         description: "Id de la fecha estimada de entrega."
@@ -115,13 +100,13 @@ models:
       - name: estimated_delivery_at
         description: "Fecha estimada de entrega."
 
-      - name: order_cost_usd
+      - name: order_cost
         description: "Coste del pedido sin gastos de envío."
 
-      - name: shipping_cost_usd
-        description: "Coste de los gastos de envío del pedido."
+      - name: shipping_cost
+        description: "Coste de los gastos de envío."
 
-      - name: order_total_usd
+      - name: order_total
         description: "Coste total del pedido."
 
       - name: shipping_service
@@ -139,7 +124,7 @@ models:
       - name: _fivetran_synced
         description: ""
 
-  - name: stg_sql_server_dbo_products
+  - name: base_sql_server_dbo_products
     description: "Tabla de productos."
     columns:
       - name: product_id
@@ -149,10 +134,10 @@ models:
         description: "Id natural del producto."
 
       - name: inventory
-        description: "Cantidad en el inventario."
+        description: "Cantidad del producto en inventario."
 
       - name: price_usd
-        description: "Precio en dólares."
+        description: "Precio del producto en dólares."
 
       - name: name
         description: "Nombre del producto."
@@ -163,17 +148,17 @@ models:
       - name: _fivetran_synced
         description: ""
 
-  - name: stg_sql_server_dbo_promos
+  - name: base_sql_server_dbo_promos
     description: "Tabla de promociones."
     columns:
       - name: promo_id
         description: "Id de la promoción."
 
       - name: promo_nk_id
-        description: "Id natural de la promoción."
+        description: "Id  natural de la promoción."
 
-      - name: discount_usd
-        description: "Descuento de la promoción en dólares."
+      - name: discout_usd
+        description: "Descuento en dólares."
 
       - name: status
         description: "Estado de la promoción."
@@ -184,23 +169,20 @@ models:
       - name: _fivetran_synced
         description: ""
 
-  - name: stg_sql_server_dbo_shipping_addresses
+  - name: base_sql_server_dbo_shipping_addresses
     description: "Tabla de direcciones de envío."
     columns:
       - name: shipping_address_id
-        description: "Id de la dirección de envío."
+        description: "Id de direcciones de envío."
 
       - name: shipping_address_nk_id
-        description: "Id natural de la dirección de envío."
+        description: "Id natural de direcciones de envío."
 
       - name: country
         description: "País."
 
       - name: state
         description: "Estado."
-
-      - name: primary_city
-        description: "Ciudad."
 
       - name: zipcode
         description: "Código postal."
@@ -214,7 +196,7 @@ models:
       - name: _fivetran_synced
         description: ""
 
-  - name: stg_sql_server_dbo_users
+  - name: base_sql_server_dbo_users
     description: "Tabla de usuarios."
     columns:
       - name: user_id
@@ -230,25 +212,25 @@ models:
         description: "Apellido."
 
       - name: address_id
-        description: "Id de la dirección del usuario."
+        description: "Id de la dirección."
 
       - name: email
         description: "Email del usuario."
 
       - name: phone_number
-        description: "Número de teléfono del usuario."
+        description: "Teléfono del usuario."
 
       - name: created_at_id
-        description: "Id de la fecha de creación del usuario."
+        description: "Id de la fecha de creación."
 
       - name: updated_at_id
-        description: "Id de la fecha de actualización del usuario."
+        description: "Id de la fecha de actualización."
 
       - name: created_at
-        description: "Fecha de creación del usuario."
+        description: "Fecha de creación."
 
       - name: updated_at
-        description: "Fecha de actualización del usuario."
+        description: "Fecha de actualización."
 
       - name: _fivetran_deleted
         description: ""
