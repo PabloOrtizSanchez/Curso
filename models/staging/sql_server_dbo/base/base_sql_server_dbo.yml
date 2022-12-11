@@ -5,6 +5,8 @@ models:
     description: "Tabla de eventos."
     columns:
       - name: event_id
+        tests:
+        - unique
         description: "Id del evento."
 
       - name: event_nk_id
@@ -29,6 +31,9 @@ models:
         description: "Tipo de evento."
 
       - name: created_at_id
+        tests:
+        - dbt_expectations.expect_column_values_to_be_of_type:
+           column_type: number
         description: "Id de la fecha de creación del evento."
 
       - name: created_at
@@ -44,6 +49,8 @@ models:
     description: "Tabla de productos del pedido."
     columns:
       - name: order_item_id
+        tests:
+        - unique
         description: "Id del producto del pedido."
 
       - name: order_items_nk_id
@@ -68,6 +75,8 @@ models:
     description: "Tabla de pedidos."
     columns:
       - name: order_id
+        tests:
+        - unique
         description: "Id del pedido."
 
       - name: order_nk_id
@@ -89,9 +98,15 @@ models:
         description: "Estado del pedido."
 
       - name: delivered_at_id
+        tests:
+        - dbt_expectations.expect_column_values_to_be_of_type:
+           column_type: number
         description: "Id de la fecha de entrega del pedido."
 
       - name: estimated_delivery_at_id
+        tests:
+        - dbt_expectations.expect_column_values_to_be_of_type:
+           column_type: number
         description: "Id de la fecha estimada de entrega."
 
       - name: delivered_at
@@ -113,6 +128,9 @@ models:
         description: "Servicio de envío."
 
       - name: created_at_id
+        tests:
+        - dbt_expectations.expect_column_values_to_be_of_type:
+           column_type: number
         description: "Id de la fecha de creación del pedido."
 
       - name: created_at
@@ -128,6 +146,8 @@ models:
     description: "Tabla de productos."
     columns:
       - name: product_id
+        tests:
+        - unique
         description: "Id del producto."
 
       - name: product_nk_id
@@ -152,6 +172,8 @@ models:
     description: "Tabla de promociones."
     columns:
       - name: promo_id
+        tests:
+        - unique
         description: "Id de la promoción."
 
       - name: promo_nk_id
@@ -173,6 +195,8 @@ models:
     description: "Tabla de direcciones de envío."
     columns:
       - name: shipping_address_id
+        tests:
+        - unique
         description: "Id de direcciones de envío."
 
       - name: shipping_address_nk_id
@@ -200,6 +224,8 @@ models:
     description: "Tabla de usuarios."
     columns:
       - name: user_id
+        tests:
+        - unique
         description: "Id del usuario."
 
       - name: user_nk_id
@@ -221,9 +247,15 @@ models:
         description: "Teléfono del usuario."
 
       - name: created_at_id
+        tests:
+        - dbt_expectations.expect_column_values_to_be_of_type:
+           column_type: number
         description: "Id de la fecha de creación."
 
       - name: updated_at_id
+        tests:
+        - dbt_expectations.expect_column_values_to_be_of_type:
+           column_type: number
         description: "Id de la fecha de actualización."
 
       - name: created_at

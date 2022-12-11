@@ -26,7 +26,7 @@ select
 , c.address
 , email
 , phone_number
-, numero_pedidos
+, b.numero_pedidos
 , created_at_id
 , updated_at_id
 , created_at

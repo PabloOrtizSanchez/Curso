@@ -5,6 +5,8 @@ models:
     description: "Tabla de presupuesto."
     columns:
       - name: budget_id
+        tests:
+        - unique
         description: "Id del presupuesto."
 
       - name: budget_nk_id
@@ -17,6 +19,9 @@ models:
         description: "Cantidad que se espera vender."
 
       - name: month_id
+        tests:
+        - dbt_expectations.expect_column_values_to_be_of_type:
+           column_type: number
         description: "Id del mes."
 
       - name: _fivetran_synced

@@ -11,15 +11,29 @@ models:
         description: "Id natural de la tabla."
 
       - name: user_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_users')
+            field: user_id
         description: "Id referida al usuario."
 
       - name: product_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_products')
+            field: product_id
+            where: product_id <> null
         description: "Id referida al producto."
 
       - name: session_id
         description: "Id referida a la sesión."
 
       - name: order_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_orders')
+            field: order_id
+            where: order_id <> null
         description: "Id referida al pedido."
 
       - name: page_url
@@ -50,12 +64,24 @@ models:
         description: "Id natural de orden y pedido."
 
       - name: order_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_orders')
+            field: order_id
         description: "Id del pedido."
 
       - name: user_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_users')
+            field: user_id
         description: "Id del usuario."
 
       - name: product_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_products')
+            field: product_id
         description: "Id del producto."
 
       - name: quantity
@@ -89,12 +115,25 @@ models:
         description: "Id natural del seguimiento del pedido."
 
       - name: shipping_address_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_shipping_addresses')
+            field: shipping_address_id
         description: "Id de la dirección de envío."
 
       - name: promo_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_promos')
+            field: promo_id
+            where: promo_id <> null
         description: "Id de la promoción."
 
       - name: user_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_users')
+            field: user_id
         description: "Id del usuario."
 
       - name: tracking_id

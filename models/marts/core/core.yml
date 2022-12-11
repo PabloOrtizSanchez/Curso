@@ -143,6 +143,9 @@ models:
         description: "Número de teléfono del usuario."
 
       - name: numero_pedidos
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
         description: "Número de pedidos del usuario."
 
       - name: created_at_id
@@ -329,18 +332,32 @@ models:
     description: "Tabla de hechos de las sesiones."
     columns:
       - name: session_id
+        tests:
+        - unique
         description: "Id referida a la sesión."
 
       - name: duracion_sesion_segundos
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
         description: "Duración de la sesión en segundos."
 
       - name: duracion_sesion_minutos
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
         description: "Duración de la sesión en minutos."
 
       - name: paginas_visitadas
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
         description: "Número de paginas visitadas."
 
       - name: productos_al_carrito
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
         description: "Número de productos añadidos al carrito."
 
       - name: hace_compra

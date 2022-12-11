@@ -11,6 +11,10 @@ models:
         description: "Id natural de presupuesto."
 
       - name: product_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_products')
+            field: product_id
         description: "Id del producto."
 
       - name: quantity
