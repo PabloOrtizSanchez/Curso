@@ -142,11 +142,14 @@ models:
       - name: phone_number
         description: "Número de teléfono del usuario."
 
-      - name: numero_pedidos
+      - name: numero_total_pedidos
+        description: "Número total de pedidos del usuario."
+
+      - name: numero_pedidos_web
         tests:
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: number
-        description: "Número de pedidos del usuario."
+        description: "Número de pedidos del usuario por la página web."
 
       - name: created_at_id
         description: "Id de la fecha de creación del usuario."

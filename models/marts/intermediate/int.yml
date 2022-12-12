@@ -23,10 +23,19 @@ models:
         description: "Dice si en esa sesión se realiza una compra."
 
   - name: int_events
-    description: "Tabla intermedia para calcular el número de pedidos por uusario."
+    description: "Tabla intermedia para calcular el número de pedidos web por usuario."
     columns:
       - name: user_nk_id
         description: "Id natural del usuario."
 
-      - name: numero_pedidos
-        description: "Número de pedidos del usuario."
+      - name: numero_pedidos_web
+        description: "Número de pedidos del usuario por la pagina web."
+
+  - name: int_orders_tracking
+    description: "Tabla intermedia para calcular el número total de pedidos por usuario."
+    columns:
+      - name: user_nk_id
+        description: "Id natural del usuario."
+
+      - name: numero_total_pedidos
+        description: "Número de pedidos totales del usuario."
