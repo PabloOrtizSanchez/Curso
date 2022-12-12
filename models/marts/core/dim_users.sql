@@ -58,6 +58,8 @@ select * from dim_users
 
 {% endif %}
 
+
+
 -- Cuidado, por el snapshot en users, la suma de pedidos será desde la última vez que se actualizó el usuario. 
 -- ARREGLADO lo de arriba, he hecho el group by por user_NK_id en int_events para que no tenga en cuenta las actualizaciones.
 

@@ -29,3 +29,4 @@ select * from fact_budget
   where _fivetran_synced > (select max(_fivetran_synced) from {{ this }})
 
 {% endif %}
+
