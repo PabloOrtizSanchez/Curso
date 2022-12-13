@@ -1,0 +1,296 @@
+version: 2
+
+models:
+  - name: stg_sql_server_dbo_events
+    description: "Tabla de eventos."
+    columns:
+      - name: event_id
+        description: "Id de la tabla."
+
+      - name: event_nk_id
+        description: "Id natural de la tabla."
+
+      - name: user_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_users')
+            field: user_id
+        description: "Id referida al usuario."
+
+      - name: product_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_products')
+            field: product_id
+            where: product_id <> null
+        description: "Id referida al producto."
+
+      - name: session_id
+        description: "Id referida a la sesión."
+
+      - name: order_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_orders')
+            field: order_tracking_id
+            where: order_id <> null
+        description: "Id referida al pedido."
+
+      - name: page_url
+        description: "Página web visitada."
+
+      - name: event_type
+        description: "Tipo de evento."
+
+      - name: created_at_id
+        description: "Id de la fecha de creación del evento."
+
+      - name: created_at
+        description: "Fecha de creación del evento."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: stg_sql_server_dbo_orders_items
+    description: "Tabla de productos del pedido."
+    columns:
+      - name: order_details_id
+        description: "Id de orden y pedido."
+
+      - name: order_details_nk_id
+        description: "Id natural de orden y pedido."
+
+      - name: order_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_orders')
+            field: order_tracking_id
+        description: "Id del pedido."
+
+      - name: user_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_users')
+            field: user_id
+        description: "Id del usuario."
+
+      - name: product_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_products')
+            field: product_id
+        description: "Id del producto."
+
+      - name: quantity
+        description: "Cantidad del mismo producto en el pedido."
+
+      - name: price_usd
+        description: "Precio en dólares."
+
+      - name: shipping_service
+        description: "Servicio de envío."
+
+      - name: created_at_id
+        description: "Id de la fecha decreación."
+
+      - name: created_at
+        description: "Fecha de creación."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: stg_sql_server_dbo_orders
+    description: "Tabla de pedidos."
+    columns:
+      - name: order_tracking_id
+        description: "Id del seguimiento del pedido."
+
+      - name: order_tracking_nk_id
+        description: "Id natural del seguimiento del pedido."
+
+      - name: shipping_address_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_shipping_addresses')
+            field: shipping_address_id
+        description: "Id de la dirección de envío."
+
+      - name: promo_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_promos')
+            field: promo_id
+            where: promo_id <> null
+        description: "Id de la promoción."
+
+      - name: user_id
+        tests:
+        - relationships:
+            to: ref('stg_sql_server_dbo_users')
+            field: user_id
+        description: "Id del usuario."
+
+      - name: tracking_id
+        description: "Id del seguimiento de varios pedidos."
+
+      - name: status
+        description: "Estado del pedido."
+
+      - name: delivered_at_id
+        description: "Id de la fecha de entrega."
+
+      - name: estimated_delivery_at_id
+        description: "Id de la fecha estimada de entrega."
+
+      - name: delivered_at
+        description: "Fecha de entrega."
+
+      - name: estimated_delivery_at
+        description: "Fecha estimada de entrega."
+
+      - name: order_cost_usd
+        description: "Coste del pedido sin gastos de envío."
+
+      - name: shipping_cost_usd
+        description: "Coste de los gastos de envío del pedido."
+
+      - name: order_total_usd
+        description: "Coste total del pedido."
+
+      - name: shipping_service
+        description: "Servicio de envío."
+
+      - name: created_at_id
+        description: "Id de la fecha de creación del pedido."
+
+      - name: created_at
+        description: "Fecha de creación del pedido."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: stg_sql_server_dbo_products
+    description: "Tabla de productos."
+    columns:
+      - name: product_id
+        description: "Id del producto."
+
+      - name: product_nk_id
+        description: "Id natural del producto."
+
+      - name: inventory
+        description: "Cantidad en el inventario."
+
+      - name: price_usd
+        description: "Precio en dólares."
+
+      - name: name
+        description: "Nombre del producto."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: stg_sql_server_dbo_promos
+    description: "Tabla de promociones."
+    columns:
+      - name: promo_id
+        description: "Id de la promoción."
+
+      - name: promo_nk_id
+        description: "Id natural de la promoción."
+
+      - name: discount_usd
+        description: "Descuento de la promoción en dólares."
+
+      - name: status
+        description: "Estado de la promoción."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: stg_sql_server_dbo_shipping_addresses
+    description: "Tabla de direcciones de envío."
+    columns:
+      - name: shipping_address_id
+        description: "Id de la dirección de envío."
+
+      - name: shipping_address_nk_id
+        description: "Id natural de la dirección de envío."
+
+      - name: country
+        description: "País."
+
+      - name: state
+        description: "Estado."
+
+      - name: primary_city
+        description: "Ciudad."
+
+      - name: zipcode
+        description: "Código postal."
+
+      - name: address
+        description: "Dirección."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: stg_sql_server_dbo_users
+    description: "Tabla de usuarios."
+    columns:
+      - name: user_id
+        description: "Id del usuario."
+
+      - name: user_nk_id
+        description: "Id natural del usuario."
+
+      - name: first_name
+        description: "Nombre."
+
+      - name: last_name
+        description: "Apellido."
+
+      - name: address_id
+        description: "Id de la dirección del usuario."
+
+      - name: email
+        description: "Email del usuario."
+
+      - name: phone_number
+        description: "Número de teléfono del usuario."
+
+      - name: created_at_id
+        description: "Id de la fecha de creación del usuario."
+
+      - name: updated_at_id
+        description: "Id de la fecha de actualización del usuario."
+
+      - name: created_at
+        description: "Fecha de creación del usuario."
+
+      - name: updated_at
+        description: "Fecha de actualización del usuario."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""

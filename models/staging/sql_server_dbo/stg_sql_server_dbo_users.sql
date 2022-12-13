@@ -1,24 +1,27 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_users as (select * from {{ source("sql_server_dbo", "users") }})
+with base_sql_server_dbo_users as (select * from {{ ref('base_sql_server_dbo_users') }})
 ,
 
-users as (
+stg_users as (
 
 select 
 
-  md5(user_id) as user_id
-, first_name as nombre
-, last_name as apellido
+  user_id
+, user_NK_id
+, first_name
+, last_name
+, address_id
 , email
 , phone_number
+, created_at_id
+, updated_at_id
 , created_at
 , updated_at
-, total_orders as pedidos_totales
 , _fivetran_deleted
 , _fivetran_synced
 
-from stg_sql_server_dbo_users
+from base_sql_server_dbo_users
 )
 
-select * from users
+select * from stg_users

@@ -1,20 +1,24 @@
 {{ config(materialized="view") }}
 
-with stg_google_sheets_budget as (select * from {{ source("google_sheets", "budget") }})
+with base_google_sheets_budget as (select * from {{ ref('base_google_sheets_budget') }})
+,
+base_sql_server_dbo_products as (select * from {{ ref('base_sql_server_dbo_products') }})
 ,
 
-budget as (
+stg_budget as (
 
-select 
+select
+  budget_id
+, budget_NK_id
+, b.product_id
+, quantity
+, month_id
+, a._fivetran_synced
 
-  md5(_row) as budget_id
-, quantity as cantidad
-, month as mes_cierre
-, monthname(month) as nombre_mes
-, product_id
-, _fivetran_synced
-
-from stg_google_sheets_budget
+from base_google_sheets_budget as a
+left join
+base_sql_server_dbo_products as b
+on a.product_id = b.product_NK_id
 )
 
-select * from budget
+select * from stg_budget

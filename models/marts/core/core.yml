@@ -1,0 +1,367 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: "Dimensión de productos."
+    columns:
+      - name: product_id
+        description: "Id del producto."
+
+      - name: product_nk_id
+        description: "Id natural del producto."
+
+      - name: inventory
+        description: "Cantidad en el inventario."
+
+      - name: price_usd
+        description: "Precio en dólares."
+
+      - name: name
+        description: "Nombre del producto."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: dim_promos
+    description: "Dimensión de promos."
+    columns:
+      - name: promo_id
+        description: "Id de la promoción."
+
+      - name: promo_nk_id
+        description: "Id natural de la promoción."
+
+      - name: discout_usd
+        description: "Descuento en dólares."
+
+      - name: status
+        description: "Estado de la promoción."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: dim_shipping_addresses
+    description: "Dimensión de direcciones de envío."
+    columns:
+      - name: shipping_address_id
+        description: "Id de la dirección de envío."
+
+      - name: shipping_address_nk_id
+        description: "Id natural de la dirección de envío."
+
+      - name: country
+        description: "País."
+
+      - name: state
+        description: "Estado."
+
+      - name: primary_city
+        description: "Ciudad."
+
+      - name: zipcode
+        description: "Código postal."
+
+      - name: address
+        description: "Dirección."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: dim_tiempo_dia
+    description: "Dimensión de tiempo a nivel de día."
+    columns:
+      - name: fecha_forecast
+        description: "Fecha."
+
+      - name: date_dia_id
+        description: "Id fecha día."
+
+      - name: date_mes_id
+        description: "Id fecha mes."
+
+      - name: anio
+        description: "Año."
+
+      - name: mes
+        description: "Mes."
+
+      - name: desc_mes
+        description: "Nombre del mes."
+
+      - name: dia_previo
+        description: "Día previo."
+
+      - name: anio_semana_dia
+        description: "Año, semana y dia."
+
+      - name: semana
+        description: "Semana."
+        
+  - name: dim_users
+    description: "Dimensión de usuarios."
+    columns:
+      - name: user_id
+        description: "Id del usuario."
+
+      - name: user_nk_id
+        description: "Id natural del usuario."
+
+      - name: first_name
+        description: "Nombre."
+
+      - name: last_name
+        description: "Apellido."
+
+      - name: country
+        description: "País."
+
+      - name: state
+        description: "Estado."
+
+      - name: primary_city
+        description: "Ciudad."
+
+      - name: zipcode
+        description: "Código postal."
+
+      - name: address
+        description: "Dirección."
+
+      - name: email
+        description: "Email del usuario."
+
+      - name: phone_number
+        description: "Número de teléfono del usuario."
+
+      - name: numero_total_pedidos
+        description: "Número total de pedidos del usuario."
+
+      - name: numero_pedidos_web
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
+        description: "Número de pedidos del usuario por la página web."
+
+      - name: created_at_id
+        description: "Id de la fecha de creación del usuario."
+
+      - name: updated_at_id
+        description: "Id de la fecha de actualización del usuario."
+
+      - name: created_at
+        description: "Fecha de creación del usuario."
+
+      - name: updated_at
+        description: "Fecha de actualización del usuario."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: fact_budget
+    description: "Dimensión de presupuestos."
+    columns:
+      - name: budget_id
+        description: "Id del presupuesto."
+
+      - name: budget_nk_id
+        description: "Id natural de presupuesto."
+
+      - name: product_id
+        description: "Id del producto."
+
+      - name: quantity_to_sell
+        description: "Cantidad a vender."
+
+      - name: month_id
+        description: "Mes referido."
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: fact_events
+    description: "Tabla de hechos sobre los eventos."
+    columns:
+      - name: event_id
+        description: "Id de la tabla."
+
+      - name: event_nk_id
+        description: "Id natural de la tabla."
+
+      - name: user_id
+        description: "Id referida al usuario."
+
+      - name: product_id
+        description: "Id referida al producto."
+
+      - name: session_id
+        description: "Id referida a la sesión."
+
+      - name: order_id
+        description: "Id referida al pedido."
+
+      - name: page_url
+        description: "Página web visitada."
+
+      - name: event_type
+        description: "Tipo de evento."
+
+      - name: created_at_id
+        description: "Id de la fecha de creación del evento."
+
+      - name: created_at
+        description: "Fecha de creación del evento."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: fact_order_details
+    description: "Dimensión sobre los detalles del pedido."
+    columns:
+      - name: order_details_id
+        description: "Id de orden y pedido."
+
+      - name: order_details_nk_id
+        description: "Id natural de orden y pedido."
+
+      - name: user_id
+        description: "Id del usuario."
+
+      - name: product_id
+        description: "Id del producto."
+
+      - name: order_id
+        description: "Id del pedido."
+
+      - name: quantity
+        description: "Cantidad del mismo producto en el pedido."
+
+      - name: price_usd
+        description: "Precio en dólares."
+
+      - name: total_price_usd
+        description: "Precio total en dólares."
+
+      - name: shipping_service
+        description: "Servicio de envío."
+
+      - name: created_at_id
+        description: "Id de la fecha decreación."
+
+      - name: created_at
+        description: "Fecha de creación."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: fact_orders_tracking
+    description: "Tabla de hechos del seguimiento del pedido."
+    columns:
+      - name: order_tracking_id
+        description: "Id del seguimiento del pedido."
+
+      - name: order_tracking_nk_id
+        description: "Id natural del seguimiento del pedido."
+
+      - name: shipping_address_id
+        description: "Id de la dirección de envío."
+
+      - name: user_id
+        description: "Id del usuario."
+
+      - name: tracking_id
+        description: "Id del seguimiento de varios pedidos."
+
+      - name: promo_id
+        description: "Id de la promoción."
+
+      - name: created_at_id
+        description: "Id de la fecha de creación del pedido."
+
+      - name: created_at
+        description: "Fecha de creación del pedido."
+
+      - name: shipping_service
+        description: "Servicio de envío."
+
+      - name: estimated_delivery_at_id
+        description: "Id de la fecha estimada de entrega."
+
+      - name: delivered_at_id
+        description: "Id de la fecha de entrega."
+
+      - name: estimated_delivery_at
+        description: "Fecha estimada de entrega."
+
+      - name: delivered_at
+        description: "Fecha de entrega."
+
+      - name: status
+        description: "Estado del pedido."
+
+      - name: order_cost_usd
+        description: "Coste del pedido sin gastos de envío."
+
+      - name: shipping_cost_usd
+        description: "Coste de los gastos de envío del pedido."
+
+      - name: order_total_usd
+        description: "Coste total del pedido."
+
+      - name: _fivetran_deleted
+        description: ""
+
+      - name: _fivetran_synced
+        description: ""
+
+  - name: fact_session
+    description: "Tabla de hechos de las sesiones."
+    columns:
+      - name: session_id
+        tests:
+        - unique
+        description: "Id referida a la sesión."
+
+      - name: duracion_sesion_segundos
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
+        description: "Duración de la sesión en segundos."
+
+      - name: duracion_sesion_minutos
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
+        description: "Duración de la sesión en minutos."
+
+      - name: paginas_visitadas
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
+        description: "Número de paginas visitadas."
+
+      - name: productos_al_carrito
+        tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
+        description: "Número de productos añadidos al carrito."
+
+      - name: hace_compra
+        description: "Dice si en esa sesión se realiza una compra."

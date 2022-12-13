@@ -12,21 +12,37 @@ sources:
       - name: budget
         columns:
           - name: _row
-            description: ""
+            tests:
+            - not_null
+            description: "Numero de la columna. En este caso es una NK."
           - name: quantity
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
-            description: ""
+                expression: ">=0"
+            description: "Cantidad que se pretende vender el mes indicado."
           - name: month
-            description: ""
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: date
+            description: "Mes referido."
           - name: product_id
-            test: 
-            - unique
-            - not null
-            description: ""
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'products')
+                field: product_id
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del producto referido.En este caso es una FK."
           - name: _fivetran_synced
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se añadieron esos datos a snowflake."
 
       - name: fivetran_audit
         columns:

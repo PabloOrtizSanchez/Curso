@@ -1,19 +1,21 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_products as (select * from {{ source("sql_server_dbo", "products") }})
+with base_sql_server_dbo_products as (select * from {{ ref('base_sql_server_dbo_products') }})
 ,
 
-products as (
+stg_products as (
+
   select
 
-      md5(product_id) as product_id
-    , inventory as inventario
-    , price as precio_USD
-    , name as nombre
+      product_id
+    , product_NK_id
+    , inventory
+    , price_USD
+    , name
     , _fivetran_deleted
     , _fivetran_synced
     
-from stg_sql_server_dbo_products
+from base_sql_server_dbo_products
 )
 
-select * from products
+select * from stg_products

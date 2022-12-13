@@ -12,57 +12,124 @@ sources:
         columns:
           - name: address_id
             tests:
-            - unique
             - not_null
-            description: ""
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id de addresses que usaremos como NK."
           - name: country
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "País."
           - name: state
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Estado."
           - name: zipcode
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
+            description: "Código postal."
           - name: address
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Dirección."
           - name: _fivetran_deleted
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            description: "Si su valor es FALSE significa que los datos siguen en la base de datos original. Si su valor es TRUE significa que los datos han sido borrados de la base de datos original."
           - name: _fivetran_synced
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se añadieron esos datos a snowflake."
 
       - name: events
         columns:
           - name: event_id
             tests:
-            - unique
             - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
             description: ""
           - name: product_id
-            description: ""
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'products')
+                field: product_id
+                where: product_id <> null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del producto referido. En este caso es una NK."
           - name: created_at
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_ntz
+            description: "Fecha en la que se creó el evento."
           - name: page_url
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Pagina web en la que ha navegado el usuario."
           - name: event_type
-            test:
-            -- accepted_values:
-            values: ['page_view','checkout','add_to_cart','package_shipped']
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            - accepted_values:
+                values: ['page_view','checkout','add_to_cart','package_shipped']
+            description: "Tipo de evento. Puede ser pagina visitada, compra, añadido al carrito o paquete enviado."
           - name: order_id
-            description: ""
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'orders')
+                field: order_id
+                where: order_id <> null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del pedido en el caso de que se haya hecho una compra. En este caso es una FK."
           - name: user_id
-            description: ""
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'users')
+                field: user_id
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del usuario que realiza el evento. En este caso es una FK."
           - name: session_id
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id de la sesión en la que está navegando el usuario."
           - name: _fivetran_deleted
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            description: "Si su valor es FALSE significa que los datos siguen en la base de datos original. Si su valor es TRUE significa que los datos han sido borrados de la base de datos original."
           - name: _fivetran_synced
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se añadieron esos datos a snowflake."
 
       - name: fivetran_audit
         columns:
           - name: id
-            tests:
-            - unique
-            - not_null
             description: ""
           - name: message
             description: ""
@@ -91,143 +158,289 @@ sources:
         columns:
           - name: order_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'orders')
+                field: order_id
             - not_null
-            description: ""
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Es la id del pedido. En este caso es una FK."
           - name: product_id
             tests:
+            - relationships:
+                to: source('sql_server_dbo', 'products')
+                field: product_id
             - not_null
-            description: ""
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del producto perteneciente al pedido. En este caso es una FK."
           - name: quantity
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
             - dbt_utils.expression_is_true:
-            expression: '>=1 '
-            description: ""
+                expression: '>=1'
+            description: "Número de veces que el producto está en ese pedido."
           - name: _fivetran_deleted
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            description: "Si su valor es FALSE significa que los datos siguen en la base de datos original. Si su valor es TRUE significa que los datos han sido borrados de la base de datos original."
           - name: _fivetran_synced
-            description: ""
+            testa:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se añadieron esos datos a snowflake."
 
       - name: orders
         columns:
           - name: order_id
             tests:
-            - unique
             - not_null
-            description: ""
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Es la id del pedido. En este caso es una NK."
           - name: delivered_at
-            description: ""
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que ha sido entregado el pedido."
           - name: order_cost
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: float
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
-            description: ""
+                expression: '>=0 '
+            description: "Precio del pedido sin gastos de envío."
           - name: shipping_service
-            description: ""
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Servicio de envío."
           - name: promo_id
-            description: ""
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'promos')
+                field: promo_id
+                where: promo_id <> null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id de la promoción. En este caso es una FK."
           - name: estimated_delivery_at
-            description: ""
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Tiempo estimado de entrega."
           - name: tracking_id
-            description: ""
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del seguimiento del envío."
           - name: shipping_cost
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: float
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
-            description: ""
+                expression: '>=0 '
+            description: "Coste de envío."
           - name: address_id
-            description: ""
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'addresses')
+                field: address_id
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id de la dirección de envío. En este caso es una FK."
           - name: status
-            test:
-            -- accepted_values:
-            values: ['delivered','shipped','preparing']
-            description: ""
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            - not_null
+            - accepted_values:
+                values: ['delivered','shipped','preparing']
+            description: "Estado del pedido. Puede estar entregado, enviado o preparándose. "
           - name: created_at
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se ha creado el pedido."
           - name: order_total
-            test:
-            - dbt_utils.expression_is_true:
-            expression: '>=0 '
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: float
+            - positive_values
+            description: "Precio total del pedido."
           - name: user_id
-            description: ""
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'users')
+                field: user_id
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del usuario que hace el pedido. En este caso es una FK."
           - name: _fivetran_deleted
-            description: ""
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            description: "Si su valor es FALSE significa que los datos siguen en la base de datos original. Si su valor es TRUE significa que los datos han sido borrados de la base de datos original."
           - name: _fivetran_synced
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se añadieron esos datos a snowflake."
 
       - name: products
         columns:
           - name: product_id
             tests:
-            - unique
             - not_null
-            description: ""
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del producto. En este caso es una NK."
           - name: inventory
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
-            description: ""
+                expression: '>=0 '
+            description: "Cantidad de producto que hay almacenado."
           - name: price
-            test:
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: float
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
-            description: ""
+                expression: '>=0'
+            description: "Precio del producto."
           - name: name
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Nombre del producto."
           - name: _fivetran_deleted
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            description: "Si su valor es FALSE significa que los datos siguen en la base de datos original. Si su valor es TRUE significa que los datos han sido borrados de la base de datos original."
           - name: _fivetran_synced
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se añadieron esos datos a snowflake."
 
       - name: promos
         columns:
           - name: promo_id
             tests:
-            - unique
             - not_null
-            description: ""
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id de la promoción que también es una NK."
           - name: discount
-            test:
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: number
             - dbt_utils.expression_is_true:
-            expression: '>=0 '
-            description: ""
+                expression: '>=0'
+            description: "Dólares que descuenta la promoción."
           - name: status
-            test:
-            -- accepted_values:
-            values: ['active','inactive']
-            description: ""
+            tests:
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            - accepted_values:
+               values: ['active','inactive']
+            description: "Dice si la promoción está activa o no."
           - name: _fivetran_deleted
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            description: "Si su valor es FALSE significa que los datos siguen en la base de datos original. Si su valor es TRUE significa que los datos han sido borrados de la base de datos original."
           - name: _fivetran_synced
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se añadieron esos datos a snowflake."
 
       - name: users
         columns:
           - name: user_id
             tests:
-            - unique
             - not_null
-            description: ""
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Id del usuario. En este caso es una NK."
           - name: address_id
-            description: ""
+            tests:
+            - relationships:
+                to: source('sql_server_dbo', 'addresses')
+                field: address_id
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Dirección en la que vive el usuario. En este caso es una FK."
           - name: first_name
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Nombre del usuario."
           - name: email
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Email del usuario."
           - name: created_at
             tests:
+            - not_null
             - dbt_expectations.expect_column_values_to_be_of_type:
                 column_type: timestamp_ntz
-            description: ""
+            description: "Fecha de creación del usuario."
           - name: last_name
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Apellido del usuario."
           - name: updated_at
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_ntz
+            description: "Fecha de la última actualización del usuario."
           - name: phone_number
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: varchar
+            description: "Número de teéfono del usuario."
           - name: total_orders
-            description: ""
+            description: "Campo vacío que eliminaremos y volveremos a añadir más adelante."
           - name: _fivetran_deleted
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+            description: "Si su valor es FALSE significa que los datos siguen en la base de datos original. Si su valor es TRUE significa que los datos han sido borrados de la base de datos original."
           - name: _fivetran_synced
-            description: ""
+            tests:
+            - not_null
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: timestamp_tz
+            description: "Fecha en la que se añadieron esos datos a snowflake."

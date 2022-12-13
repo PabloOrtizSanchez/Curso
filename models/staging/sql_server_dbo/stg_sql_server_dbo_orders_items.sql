@@ -1,20 +1,42 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_orders_items as (select * from {{ source("sql_server_dbo", "order_items") }})
+with base_sql_server_dbo_orders_items as (select * from {{ ref('base_sql_server_dbo_orders_items') }})
+,
+base_sql_server_dbo_orders as (select * from {{ ref('base_sql_server_dbo_orders') }})
+,
+base_sql_server_dbo_products as (select * from {{ ref('base_sql_server_dbo_products') }})
+,
+base_sql_server_dbo_users as (select * from {{ ref('base_sql_server_dbo_users') }})
 ,
 
-orders_items as(
+
+stg_orders_items as (
+
   select
+   order_item_id as order_details_id
+ , order_items_NK_id as order_details_NK_id
+ , b.order_id
+ , d.user_id
+ , c.product_id
+ , a.quantity
+ , c.price_USD
+ , b.shipping_service
+ , b.created_at_id
+ , b.created_at
+ , a._fivetran_deleted
+ , a._fivetran_synced
 
-  md5(order_id) as order_id
- , md5(product_id) as product_id
- , quantity
- , _fivetran_deleted
- , _fivetran_synced
-
-from stg_sql_server_dbo_orders_items
+from base_sql_server_dbo_orders_items as a
+left join
+base_sql_server_dbo_orders as b
+on a.order_id = b.order_NK_id
+left join 
+base_sql_server_dbo_products as c
+on a.product_id = c.product_NK_id
+left join
+base_sql_server_dbo_users as d
+on b.user_id = d.user_NK_id
 )
 
-
-select * from orders_items
--- si quiero añadir la columna producto como meto esos datos
+select * from stg_orders_items
+order by order_id

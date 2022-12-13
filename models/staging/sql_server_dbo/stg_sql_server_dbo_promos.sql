@@ -1,22 +1,24 @@
 {{ config(materialized="view") }}
 
-with stg_sql_server_dbo_promos as (select * from {{ source("sql_server_dbo", "promos") }})
+with base_sql_server_dbo_promos as (select * from {{ ref('base_sql_server_dbo_promos') }})
 ,
 
 
-promos as (
+
+stg_promos as (
+  
   select
 
-      md5(promo_id) as promo_id
-    , promo_id as nombre_promo
-    , discount as descuento_dolares
-    , status as estado
+      promo_id
+    , promo_NK_id
+    , discount_USD
+    , status
     , _fivetran_deleted
     , _fivetran_synced
 
-from stg_sql_server_dbo_promos
+from base_sql_server_dbo_promos
 )
 
-select * from promos
--- preguntar como hacer test para ver que tipo de dato entra
+select * from stg_promos
+
 
